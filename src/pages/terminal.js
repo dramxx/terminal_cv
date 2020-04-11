@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet/es/Helmet';
 import Layout from '../components/Layout';
 import TerminalLoader from '../components/TerminalLoader';
 import Terminal from '../components/Terminal';
+import TerminalInput from '../components/TerminalInput';
 
 const TerminalPage = () => {
 
@@ -12,17 +13,18 @@ const TerminalPage = () => {
         <>
           <Terminal>
             <TerminalLoader
-                text={'user@terminal: Booting system up..'}
-                wait={1000}
+                wait={500}
+                text={'Booting system up..'}
             />
             <TerminalLoader
-                text={'user@terminal: Bootstrapping terminal..'}
+                wait={1500}
+                text={'Launching terminal..'}
+            />
+            <TerminalLoader
                 wait={3000}
+                text={'user@terminal: Welcome. Please, type --h to list available commands.'}
             />
-            <TerminalLoader
-                text={'user@terminal: Launching terminal..'}
-                wait={5000}
-            />
+            <TerminalInput wait={3100}/>
           </Terminal>
         </>
       </Layout>

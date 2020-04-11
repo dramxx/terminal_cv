@@ -23,9 +23,11 @@ const TerminalLoader = ({wait, text}) => {
 
   return (
       <>
-        <TextLine style={visible ? {display: 'block'} : {display: 'inline-none'}}>
-          {visible ? text : null}
-        </TextLine>
+        {
+          <TextLine style={visible ? {display: 'block'} : {display: 'none'}}>
+            {visible ? text : null}
+          </TextLine>
+        }
       </>
   );
 };

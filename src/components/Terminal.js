@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//TODO: inner overflow;
+const TerminalWrapper = styled.div``;
+
 const TerminalHeader = styled.div`
   position: relative;
   margin-top: 10vh;
@@ -48,7 +51,7 @@ const TerminalTextWrapper = styled.div`
 const Terminal = ({children}) => {
 
   return (
-      <>
+      <TerminalWrapper>
         <ButtonsWrapper>
           <WindowButton color={'#ed473b'}/>
           <WindowButton color={'#ffe75e'}/>
@@ -60,7 +63,7 @@ const Terminal = ({children}) => {
             {children}
           </TerminalTextWrapper>
         </TerminalBody>
-      </>
+      </TerminalWrapper>
   );
 };
 

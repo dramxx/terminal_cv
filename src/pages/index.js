@@ -11,6 +11,7 @@ const Wrapper = styled.div`
 
 const Heading = styled.div`
   font-size: 200px;
+  margin-bottom: 2vh;
 `;
 
 const SubHeading = styled.div`
@@ -45,7 +46,7 @@ const IndexPage = () => {
               I'm Drahoš and I enjoy building busty frontends.
             </div>
             <div>
-              to further information, please launch <Link href={'/terminal'}>terminal</Link>.
+              for further information, please launch <Link href={'/terminal'}>terminal</Link>.
             </div>
           </SubHeading>
         </Wrapper>
