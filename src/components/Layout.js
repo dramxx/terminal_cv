@@ -13,8 +13,6 @@ const GlobalStyles = styled.div`
     text-decoration: underline;
     underline-color: red;
   }, 
-  
-
 `;
 
 const Wrapper = styled.div`

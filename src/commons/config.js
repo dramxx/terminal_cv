@@ -16,3 +16,18 @@ export const directoryList = [
   '4_recent_projects.txt',
   'drahosMadar_cv.pdf',
 ];
+
+export const helpText = [
+    'ls Lists content of directory',
+    'cat Takes .txt document as parameter and prints its content on a screen, eg: cat 1_about.txt',
+    '--d Takes .pdf document as parameter and downloads it on users hdd, eg: --d drahosMadar_cv.pdf',
+    '--q Exit terminal',
+];
+
+export const catTexts = {
+  about: 'About placeholder.',
+  history: 'Work history placeholder.',
+  skills: 'Skills placeholder.',
+  projects: 'Recent projects placeholder.'
+}
+

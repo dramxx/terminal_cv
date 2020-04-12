@@ -1,5 +1,6 @@
 
 ### Possible future commands:
+ * render directory content in line ( ls -l )
  * movement within directory levels ( cd )
  * show a current directory ( pwd ) 
  * clear screen ( cls )

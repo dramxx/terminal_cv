@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { navigate } from 'gatsby';
-import { availableCommands } from '../commons/config';
+import { availableCommands, catTexts, directoryList, helpText } from '../commons/config';
 import { sanitizeInput } from '../commons/helpers';
 
 const SystemPrefix = styled.div`
@@ -24,9 +24,10 @@ const Input = styled.input`
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
+  width: 40vw;
 `;
 
-const TerminalInput = ({wait}) => {
+const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   const [visible, setVisible] = useState(false);
 
@@ -38,7 +39,7 @@ const TerminalInput = ({wait}) => {
 
     const enterListener = event => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        routeCommand(event.target.value).then(() => null);
+        routeCommand(event.target.value).then(() => event.target.value = '');
       }
     };
     document.addEventListener('keydown', enterListener);
@@ -49,29 +50,28 @@ const TerminalInput = ({wait}) => {
     };
   }, []);
 
-  const routeCommand = async (userCommand) => {
+  const routeCommand = async (input) => {
 
-    const command = sanitizeInput(userCommand);
+    const command = sanitizeInput(input);
 
     switch (command) {
       case availableCommands.help:
-        await handleHelp();
+        await handleHelp(`user@terminal: ${input}`);
         break;
 
       case availableCommands.list:
-        await handleList();
+        await handleList(`user@terminal: ${input}`);
         break;
 
       case availableCommands.quit:
         await handleQuit();
         break;
 
-      case
-      availableCommands.catAbout ||
-      availableCommands.catHistory ||
-      availableCommands.catRecentProjects ||
-      availableCommands.catSkills:
-        await handleCat(command);
+      case availableCommands.catAbout:
+      case availableCommands.catHistory:
+      case availableCommands.catRecentProjects:
+      case availableCommands.catSkills:
+        await handleCat(command, `user@terminal: ${input}`);
         break;
 
       case availableCommands.download:
@@ -79,18 +79,20 @@ const TerminalInput = ({wait}) => {
         break;
 
       default:
-      // TODO: return command not recognized message
+        await handleUnrecognized(input);
     }
   };
 
-  const handleHelp = () => {
-    // TODO: v1:  render <TerminalResponse/> & new <TerminalInput /> in parent
-    // TODO: v2: use only one TerminalInput instance, render TerminalResponse above TerminalInput
-    //  and manage render in parent
+  const handleHelp = (history) => {
+    historyStatus(history);
+    outcomeStatus(helpText.join(' '));
+    displayStatus(true);
   };
 
-  const handleList = () => {
-    // TODO: render directoryList content and new terminal line in parent
+  const handleList = (history) => {
+    historyStatus(history);
+    outcomeStatus(directoryList.join(', '));
+    displayStatus(true);
   };
 
   const handleQuit = () => {
@@ -99,13 +101,44 @@ const TerminalInput = ({wait}) => {
     return navigate('/');
   };
 
-  const handleCat = (commandString) => {
-    // TODO: parse command param after '+', handle each case
-    console.log('[commandString]: ', commandString);
+  const handleCat = (command, history) => {
+
+    const document = command.split('+')[1];
+
+    switch (document) {
+      case '1_about.txt':
+        historyStatus(history);
+        outcomeStatus(catTexts.about);
+        displayStatus(true);
+        break;
+      case '2_work_history.txt':
+        historyStatus(history);
+        outcomeStatus(catTexts.history);
+        displayStatus(true);
+        break;
+      case '3_skills.txt':
+        historyStatus(history);
+        outcomeStatus(catTexts.skills);
+        displayStatus(true);
+        break;
+      case '4_recent_projects.txt':
+        historyStatus(history);
+        outcomeStatus(catTexts.projects);
+        displayStatus(true);
+        break;
+      default:
+        return;
+    }
   };
 
   const handleDownload = () => {
     // TODO: download pdf from src
+  };
+
+  const handleUnrecognized = (unrecognizedInput) => {
+    historyStatus(`user@terminal: ${unrecognizedInput}`);
+    outcomeStatus(`ERROR: Input '${unrecognizedInput}' was not recognized.`);
+    displayStatus(true);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet/es/Helmet';
 import Layout from '../components/Layout';
 import Terminal from '../components/Terminal';
@@ -7,6 +7,25 @@ import TerminalInput from '../components/TerminalInput';
 import TerminalResponse from '../components/TerminalResponse';
 
 const TerminalPage = () => {
+
+  const [display, setDisplay] = useState(false);
+  const [history, setHistory] = useState('');
+  const [outcome, setOutcome] = useState('');
+
+  const fetchDisplay = (status) => {
+    setDisplay(status);
+  };
+
+  const fetchHistory = (status) => {
+    setHistory(status);
+  };
+
+  const fetchOutcome = (status) => {
+    setOutcome(status);
+  };
+
+  // TODO: IMPLEMENT cat
+  // TODO: MAINTAIN history object in parent and prepend each output
 
   return (
       <Layout>
@@ -23,10 +42,19 @@ const TerminalPage = () => {
             />
             <TerminalLoader
                 wait={3000}
-                text={'user@terminal: Welcome. Please, type --h to list available commands.'}
+                text={`user@terminal: Welcome. Please, type --h to list available commands.`}
             />
-            <TerminalResponse/>
-            <TerminalInput wait={3100}/>
+            <TerminalResponse
+                display={display}
+                history={history}
+                outcome={outcome}
+            />
+            <TerminalInput
+                wait={3100}
+                displayStatus={fetchDisplay}
+                historyStatus={fetchHistory}
+                outcomeStatus={fetchOutcome}
+            />
           </Terminal>
         </>
       </Layout>
