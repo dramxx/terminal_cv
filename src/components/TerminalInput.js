@@ -10,7 +10,7 @@ const SystemPrefix = styled.div`
   color: green;
   margin-left: 1vw;
   line-height: 30px;
-  font-weight: 600;
+  // font-weight: 600;
 `;
 
 const Input = styled.input`
@@ -45,8 +45,36 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
     };
     document.addEventListener('keydown', enterListener);
 
+    const tabListener = event => {
+      if (event.code === 'Tab' && event.target.value) {
+        if (event.target.value.length > 4) {
+          const phrase = event.target.value.substring(0, 5);
+          const prompt = document.getElementById('prompt');
+
+          switch (phrase) {
+            case 'cat 1':
+              prompt.value = 'cat 1_about.txt';
+              break;
+            case 'cat 2':
+              prompt.value = 'cat 2_work_history.txt';
+              break;
+            case 'cat 3':
+              prompt.value = 'cat 3_skills.txt';
+              break;
+            case 'cat 4':
+              prompt.value = 'cat 4_recent_projects.txt';
+              break;
+            default:
+              return;
+          }
+        }
+      }
+    };
+    document.addEventListener('keydown', tabListener);
+
     return () => {
       document.removeEventListener('keydown', enterListener);
+      document.removeEventListener('keydown', tabListener);
       clearTimeout(timer);
     };
   }, []);
@@ -86,7 +114,7 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   const handleHelp = (history) => {
     historyStatus(history);
-    outcomeStatus(helpText.join(' '));
+    outcomeStatus(helpText.join('\n'));
     displayStatus(true);
   };
 
@@ -100,7 +128,9 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
     historyStatus(history);
     outcomeStatus('Shutting down..');
     displayStatus(true);
-    setTimeout(() => {navigate('/')}, 1500);
+    setTimeout(() => {
+      navigate('/');
+    }, 1500);
   };
 
   const handleCat = (command, history) => {
@@ -145,10 +175,10 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   return (
       <>
-        {/* TODO: autofocus */}
+        {/* TODO: autofocus React.ref */}
         <div style={visible ? {display: 'inline flex'} : {display: 'none'}}>
           <SystemPrefix>user@terminal: </SystemPrefix>
-          <Input type='text'/>
+          <Input name='prompt' id='prompt' type='text'/>
         </div>
       </>
   );

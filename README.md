@@ -11,5 +11,7 @@
  * add preloader for boot and shutdown lines
  
 ### UX enhancements
- * tab autocompletion
+ * DONE tab autocompletion
  
+### IDEA enhancements
+ * write CV in Markdown, use md as datasource for config strings
