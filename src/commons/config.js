@@ -30,4 +30,3 @@ export const catTexts = {
   skills: 'Skills placeholder.',
   projects: 'Recent projects placeholder.'
 }
-

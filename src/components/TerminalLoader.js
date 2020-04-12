@@ -22,7 +22,6 @@ const TerminalLoader = ({wait, text}) => {
 
   return (
       <>
-        {/* TODO: show preloader for first two lines */}
         {
           <TextLine style={visible ? {display: 'block'} : {display: 'none'}}>
             {visible ? text : null}

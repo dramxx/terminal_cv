@@ -64,7 +64,7 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
         break;
 
       case availableCommands.quit:
-        await handleQuit();
+        await handleQuit(`user@terminal: ${input}`);
         break;
 
       case availableCommands.catAbout:
@@ -95,10 +95,11 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
     displayStatus(true);
   };
 
-  const handleQuit = () => {
-    // TODO: delayed CSS load??
-    // TODO: render shutdown sequence
-    return navigate('/');
+  const handleQuit = (history) => {
+    historyStatus(history);
+    outcomeStatus('Shutting down..');
+    displayStatus(true);
+    setTimeout(() => {navigate('/')}, 1500);
   };
 
   const handleCat = (command, history) => {
@@ -143,7 +144,7 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   return (
       <>
-        {/* TODO: autofocus and retain focus */}
+        {/* TODO: autofocus */}
         <div style={visible ? {display: 'inline flex'} : {display: 'none'}}>
           <SystemPrefix>user@terminal: </SystemPrefix>
           <Input type='text'/>

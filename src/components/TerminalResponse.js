@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const  HistoryWrapper = styled.div`
+const HistoryWrapper = styled.div`
   font-family: 'Inconsolata', monospace;
   font-size: 20px;
   color: green;
@@ -20,15 +20,14 @@ const ResponseWrapper = styled.div`
 const TerminalResponse = ({display, history, outcome}) => {
 
   return (
-      display &&
-      <>
+      display ? <>
         <HistoryWrapper>
           {history}
         </HistoryWrapper>
         <ResponseWrapper>
           user@terminal: {outcome}
         </ResponseWrapper>
-      </>
+      </> : null
   );
 };
 

@@ -34,8 +34,8 @@ const Link = styled.a`
   }
 `;
 
+// TODO: delayed CSS on re-routing here? 
 const IndexPage = () => {
-
   return (
       <Layout>
         <Wrapper>

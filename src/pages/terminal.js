@@ -5,6 +5,7 @@ import Terminal from '../components/Terminal';
 import TerminalLoader from '../components/TerminalLoader';
 import TerminalInput from '../components/TerminalInput';
 import TerminalResponse from '../components/TerminalResponse';
+import ShutdownSequence from '../components/ShutdownSequence';
 
 const TerminalPage = () => {
 
@@ -23,9 +24,6 @@ const TerminalPage = () => {
   const fetchOutcome = (status) => {
     setOutcome(status);
   };
-
-  // TODO: IMPLEMENT cat
-  // TODO: MAINTAIN history object in parent and prepend each output
 
   return (
       <Layout>
@@ -54,6 +52,10 @@ const TerminalPage = () => {
                 displayStatus={fetchDisplay}
                 historyStatus={fetchHistory}
                 outcomeStatus={fetchOutcome}
+            />
+            <ShutdownSequence
+                display={display}
+                outcome={outcome}
             />
           </Terminal>
         </>

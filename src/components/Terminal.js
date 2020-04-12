@@ -46,8 +46,6 @@ const TerminalTextWrapper = styled.div`
 `;
 
 // TODO: inner overflow;
-// TODO: fix responsivity
-// TODO: cen ter correctly
 const TerminalWrapper = styled.div`
   @media (max-width: 1150px) {
     ${TerminalHeader} & {

@@ -1,11 +1,11 @@
 import React from 'react';
 
-const ShutdownSequence = () => {
+const ShutdownSequence = ({display, outcome}) => {
 
   return (
-      <div>
-        shutting down
-      </div>
+      display ? <div>
+        {outcome}
+      </div> : null
   );
 };
 
