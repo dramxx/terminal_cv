@@ -10,7 +10,7 @@ const SystemPrefix = styled.div`
   color: green;
   margin-left: 1vw;
   line-height: 30px;
-  // font-weight: 600;
+  font-weight: 600;
 `;
 
 const Input = styled.input`
@@ -88,22 +88,22 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
     switch (command) {
       case availableCommands.help:
-        await handleHelp(`user@terminal: ${input}`);
+        await handleHelp(input);
         break;
 
       case availableCommands.list:
-        await handleList(`user@terminal: ${input}`);
+        await handleList(input);
         break;
 
       case availableCommands.quit:
-        await handleQuit(`user@terminal: ${input}`);
+        await handleQuit(input);
         break;
 
       case availableCommands.catAbout:
       case availableCommands.catHistory:
       case availableCommands.catRecentProjects:
       case availableCommands.catSkills:
-        await handleCat(command, `user@terminal: ${input}`);
+        await handleCat(command, input);
         break;
 
       case availableCommands.download:
@@ -167,7 +167,7 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
   };
 
   const handleDownload = () => {
-    // TODO: download pdf from src
+    // TODO: download pdf/md from src
   };
 
   const handleUnrecognized = (unrecognizedInput) => {
@@ -178,7 +178,6 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   return (
       <>
-        {/* TODO: autofocus React.ref - still not working */}
         <div style={visible ? {display: 'inline flex'} : {display: 'none'}}>
           <SystemPrefix>user@terminal: </SystemPrefix>
           <Input

@@ -1,15 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const HistoryWrapper = styled.div`
-  font-family: 'Inconsolata', monospace;
-  font-size: 20px;
-  color: green;
-  margin-left: 1vw;
-  line-height: 30px;
-`;
-
-const ResponseWrapper = styled.div`
+const LineWrapper = styled.div`
   font-family: 'Inconsolata', monospace;
   font-size: 20px;
   color: green;
@@ -18,19 +10,19 @@ const ResponseWrapper = styled.div`
 `;
 
 const SystemPrefix = styled.span`
-  // font-weight: 600;
+  font-weight: 600;
 `;
 
 const TerminalResponse = ({display, history, outcome}) => {
 
   return (
       display ? <>
-        <HistoryWrapper>
-          {history}
-        </HistoryWrapper>
-        <ResponseWrapper>
+        <LineWrapper>
+          <SystemPrefix>user@terminal:</SystemPrefix> {history}
+        </LineWrapper>
+        <LineWrapper>
           <SystemPrefix>user@terminal:</SystemPrefix> {outcome}
-        </ResponseWrapper>
+        </LineWrapper>
       </> : null
   );
 };

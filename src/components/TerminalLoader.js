@@ -9,6 +9,10 @@ const TextLine = styled.div`
   line-height: 30px;
 `;
 
+const SystemPrefix = styled.span`
+  font-weight: 600;
+`;
+
 const TerminalLoader = ({wait, text}) => {
 
   const [visible, setVisible] = useState(false);
@@ -24,6 +28,7 @@ const TerminalLoader = ({wait, text}) => {
       <>
         {
           <TextLine style={visible ? {display: 'block'} : {display: 'none'}}>
+            {text[0] === 'W' ? <SystemPrefix>user@terminal: </SystemPrefix> : null}
             {visible ? text : null}
           </TextLine>
         }

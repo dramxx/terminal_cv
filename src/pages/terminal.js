@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { Helmet } from 'react-helmet/es/Helmet';
 import Layout from '../components/Layout';
 import Terminal from '../components/Terminal';
@@ -7,6 +6,7 @@ import TerminalLoader from '../components/TerminalLoader';
 import TerminalInput from '../components/TerminalInput';
 import TerminalResponse from '../components/TerminalResponse';
 import ShutdownSequence from '../components/ShutdownSequence';
+import TerminalHistory from '../components/TerminalHistory';
 
 const TerminalPage = () => {
 
@@ -26,8 +26,6 @@ const TerminalPage = () => {
     setOutcome(status);
   };
 
-  //TODO: text from <TerminalResponse/> is rendered twice ( disable text selection workaround )
-  //TODO: make system prefix on welcome loader text and history text bold
   //TODO: terminal input line wont appear in Chrome, Edge
   return (
       <Layout>
@@ -44,7 +42,11 @@ const TerminalPage = () => {
             />
             <TerminalLoader
                 wait={3000}
-                text={`user@terminal: Welcome. Please, type --h to list available commands.`}
+                text={'Welcome. Please, type --h to list available commands.'}
+            />
+            <TerminalHistory
+                history={history}
+                outcome={outcome}
             />
             <TerminalResponse
                 display={display}

@@ -47,6 +47,12 @@ const TerminalTextWrapper = styled.div`
 
 // TODO: inner overflow;
 const TerminalWrapper = styled.div`
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+   
   @media (max-width: 1150px) {
     ${TerminalHeader} & {
       margin: 0;
