@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { navigate } from 'gatsby';
 import { availableCommands, catTexts, directoryList, helpText } from '../commons/config';
@@ -32,10 +32,13 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   const [visible, setVisible] = useState(false);
 
+  const promptRef = useRef(null);
+
   useEffect(() => {
 
     const timer = setTimeout(() => {
       setVisible(true);
+      promptRef.current.focus();
     }, wait);
 
     const enterListener = event => {
@@ -53,7 +56,7 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
           switch (phrase) {
             case 'cat 1':
-              prompt.value = 'cat 1_about.txt';
+              prompt.value = 'cat 1_about.txt'
               break;
             case 'cat 2':
               prompt.value = 'cat 2_work_history.txt';
@@ -175,10 +178,15 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   return (
       <>
-        {/* TODO: autofocus React.ref */}
+        {/* TODO: autofocus React.ref - still not working */}
         <div style={visible ? {display: 'inline flex'} : {display: 'none'}}>
           <SystemPrefix>user@terminal: </SystemPrefix>
-          <Input name='prompt' id='prompt' type='text'/>
+          <Input
+              ref={promptRef}
+              name='prompt'
+              id='prompt'
+              type='text'
+          />
         </div>
       </>
   );
