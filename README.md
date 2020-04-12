@@ -1,7 +1,10 @@
 
 ### Possible future commands:
- * movement within directory levels
- * clear screen
- * show current ip and os / browser details
- * send email via console, --m adresatov@mail.com opens hypertext field
+ * movement within directory levels ( cd )
+ * show a current directory ( pwd ) 
+ * clear screen ( cls )
+ * show current ip and os / browser details ( --i )
+ * send email via console, ( --m some@mail.com ) opens hypertext
 
+### UI enhancements
+ * add preloader for boot and shutdown lines

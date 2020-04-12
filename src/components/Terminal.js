@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//TODO: inner overflow;
-const TerminalWrapper = styled.div``;
-
 const TerminalHeader = styled.div`
   position: relative;
   margin-top: 10vh;
@@ -46,6 +43,22 @@ const WindowButton = styled.div`
 
 const TerminalTextWrapper = styled.div`
   padding-top: 1vh;
+`;
+
+// TODO: inner overflow;
+// TODO: fix responsivity
+// TODO: cen ter correctly
+const TerminalWrapper = styled.div`
+  @media (max-width: 1150px) {
+    ${TerminalHeader} & {
+      margin: 0;
+      padding: 0;
+    }
+    ${TerminalBody} & {
+      margin: 0;
+      padding: 0;
+    }
+  }
 `;
 
 const Terminal = ({children}) => {

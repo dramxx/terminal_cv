@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet/es/Helmet';
 import Layout from '../components/Layout';
-import TerminalLoader from '../components/TerminalLoader';
 import Terminal from '../components/Terminal';
+import TerminalLoader from '../components/TerminalLoader';
 import TerminalInput from '../components/TerminalInput';
 
 const TerminalPage = () => {

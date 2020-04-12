@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { navigate } from 'gatsby';
 import { availableCommands } from '../commons/config';
+import { sanitizeInput } from '../commons/helpers';
 
 const SystemPrefix = styled.div`
   font-family: 'Inconsolata', monospace;
   font-size: 20px;
   color: green;
-  margin-top: 1vw;
   margin-left: 1vw;
-  line-height: 10px;
+  line-height: 30px;
 `;
 
-//TODO: autofocus and fix focus
 const Input = styled.input`
   font-family: 'Inconsolata', monospace;
   font-size: 20px;
   color: green;
-  margin-top: 0.6vw;
-  margin-left: 1vw;
-  line-height: 10px;
+  margin-left: .5vw;
+  line-height: 30px;
   border:none;
   background-image:none;
   background-color:transparent;
@@ -32,58 +31,61 @@ const TerminalInput = ({wait}) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+
     const timer = setTimeout(() => {
       setVisible(true);
     }, wait);
 
-    const listener = event => {
+    const enterListener = event => {
       if (event.code === 'Enter' || event.code === 'NumpadEnter') {
-        inputValidation(event.target.value);
+        routeCommand(event.target.value).then(() => null);
       }
     };
-    document.addEventListener('keydown', listener);
+    document.addEventListener('keydown', enterListener);
+
     return () => {
-      document.removeEventListener('keydown', listener);
+      document.removeEventListener('keydown', enterListener);
       clearTimeout(timer);
     };
   }, []);
 
-  const validateCommand = (command, value) =>
-      command === Object.keys(availableCommands).find(key => availableCommands[key] === value);
+  const routeCommand = async (userCommand) => {
 
-  const inputValidation = (command) => {
+    const command = sanitizeInput(userCommand);
 
-    const sanitizedCommand = command.replace(/\s+/g, '+').toLowerCase();
+    switch (command) {
+      case availableCommands.help:
+        await handleHelp();
+        break;
 
-    switch (sanitizedCommand) {
-      case validateCommand(sanitizedCommand, availableCommands.help):
-        handleHelp();
+      case availableCommands.list:
+        await handleList();
         break;
-      case validateCommand(sanitizedCommand, availableCommands.list):
-        handleList();
+
+      case availableCommands.quit:
+        await handleQuit();
         break;
-      case validateCommand(sanitizedCommand, availableCommands.quit):
-        //FIXME: not getting here on true condition
-        handleQuit();
-        break;
+
       case
-      validateCommand(sanitizedCommand, availableCommands.catAbout) ||
-      validateCommand(sanitizedCommand, availableCommands.catHistory) ||
-      validateCommand(sanitizedCommand, availableCommands.catRecentProjects) ||
-      validateCommand(sanitizedCommand, availableCommands.catSkills,
-      ):
-        handleCat();
+      availableCommands.catAbout ||
+      availableCommands.catHistory ||
+      availableCommands.catRecentProjects ||
+      availableCommands.catSkills:
+        await handleCat(command);
         break;
-      case validateCommand(sanitizedCommand, availableCommands.download):
-        handleDownload();
+
+      case availableCommands.download:
+        await handleDownload();
         break;
+
       default:
-        //TODO: return command not recognized message
+      // TODO: return command not recognized message
     }
   };
 
   const handleHelp = () => {
-    // TODO: render command response and new terminal line in parent
+    // TODO: render <TerminalResponse/> & new <TerminalInput /> in parent
+    console.log('[HELP]');
   };
 
   const handleList = () => {
@@ -91,23 +93,28 @@ const TerminalInput = ({wait}) => {
   };
 
   const handleQuit = () => {
-    //  TODO: route to index page
-    console.log('[3 called handleQuit]');
+    // TODO: delayed CSS load??
+    // TODO: render shutdown sequence
+    return navigate('/');
   };
 
-  const handleCat = () => {
-    //  TODO: parse command param after '+', handle each case
+  const handleCat = (commandString) => {
+    // TODO: parse command param after '+', handle each case
+    console.log('[commandString]: ', commandString);
   };
 
   const handleDownload = () => {
-    //  TODO: download pdf from src
+    // TODO: download pdf from src
   };
 
   return (
-      <div style={visible ? {display: 'inline flex'} : {display: 'none'}}>
-        <SystemPrefix>user@terminal: </SystemPrefix>
-        <Input type='text'/>
-      </div>
+      <>
+        {/* TODO: autofocus and retain focus */}
+        <div style={visible ? {display: 'inline flex'} : {display: 'none'}}>
+          <SystemPrefix>user@terminal: </SystemPrefix>
+          <Input type='text'/>
+        </div>
+      </>
   );
 };
 

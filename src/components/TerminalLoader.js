@@ -5,9 +5,8 @@ const TextLine = styled.div`
   font-family: 'Inconsolata', monospace;
   font-size: 20px;
   color: green;
-  margin-top: 1vw;
   margin-left: 1vw;
-  line-height: 10px;
+  line-height: 30px;
 `;
 
 const TerminalLoader = ({wait, text}) => {
@@ -23,6 +22,7 @@ const TerminalLoader = ({wait, text}) => {
 
   return (
       <>
+        {/* TODO: show preloader for first two lines */}
         {
           <TextLine style={visible ? {display: 'block'} : {display: 'none'}}>
             {visible ? text : null}
