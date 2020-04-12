@@ -84,8 +84,9 @@ const TerminalInput = ({wait}) => {
   };
 
   const handleHelp = () => {
-    // TODO: render <TerminalResponse/> & new <TerminalInput /> in parent
-    console.log('[HELP]');
+    // TODO: v1:  render <TerminalResponse/> & new <TerminalInput /> in parent
+    // TODO: v2: use only one TerminalInput instance, render TerminalResponse above TerminalInput
+    //  and manage render in parent
   };
 
   const handleList = () => {

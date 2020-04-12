@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Terminal from '../components/Terminal';
 import TerminalLoader from '../components/TerminalLoader';
 import TerminalInput from '../components/TerminalInput';
+import TerminalResponse from '../components/TerminalResponse';
 
 const TerminalPage = () => {
 
@@ -24,6 +25,7 @@ const TerminalPage = () => {
                 wait={3000}
                 text={'user@terminal: Welcome. Please, type --h to list available commands.'}
             />
+            <TerminalResponse/>
             <TerminalInput wait={3100}/>
           </Terminal>
         </>
