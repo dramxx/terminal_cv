@@ -10,6 +10,7 @@ const SystemPrefix = styled.div`
   color: green;
   margin-left: 1vw;
   line-height: 30px;
+  font-weight: 600;
 `;
 
 const Input = styled.input`

@@ -9,3 +9,7 @@
 
 ### UI enhancements
  * add preloader for boot and shutdown lines
+ 
+### UX enhancements
+ * tab autocompletion
+ 

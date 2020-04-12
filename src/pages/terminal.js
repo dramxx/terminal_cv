@@ -25,6 +25,8 @@ const TerminalPage = () => {
     setOutcome(status);
   };
 
+  //TODO: text from <TerminalResponse/> is rendered twice
+  //TODO: make system prefix on welcome loader text and history text bold
   return (
       <Layout>
         <Helmet title={'terminal'}/>

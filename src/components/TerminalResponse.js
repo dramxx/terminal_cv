@@ -17,6 +17,10 @@ const ResponseWrapper = styled.div`
   line-height: 30px;
 `;
 
+const SystemPrefix = styled.span`
+  font-weight: 600;
+`;
+
 const TerminalResponse = ({display, history, outcome}) => {
 
   return (
@@ -25,7 +29,7 @@ const TerminalResponse = ({display, history, outcome}) => {
           {history}
         </HistoryWrapper>
         <ResponseWrapper>
-          user@terminal: {outcome}
+          <SystemPrefix>user@terminal:</SystemPrefix> {outcome}
         </ResponseWrapper>
       </> : null
   );

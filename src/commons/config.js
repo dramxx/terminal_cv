@@ -25,7 +25,10 @@ export const helpText = [
 ];
 
 export const catTexts = {
-  about: 'About placeholder.',
+  about:
+      'A front-end developer with 4+ years commercial experience in delivering client facing projects.\n' +
+      'Passionate about using modern technology and very keen to improve on existing skills and to learn new ones.\n' +
+      '8+ years previous experience on various Project Management and Business Process Management roles within IBM.',
   history: 'Work history placeholder.',
   skills: 'Skills placeholder.',
   projects: 'Recent projects placeholder.'
