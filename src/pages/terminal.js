@@ -7,12 +7,14 @@ import TerminalInput from '../components/TerminalInput';
 import TerminalResponse from '../components/TerminalResponse';
 import ShutdownSequence from '../components/ShutdownSequence';
 import TerminalHistory from '../components/TerminalHistory';
+import {systemMessages} from '../commons/config';
 
 const TerminalPage = () => {
 
   const [display, setDisplay] = useState(false);
   const [history, setHistory] = useState('');
   const [outcome, setOutcome] = useState('');
+  const [terminalHistory, setTerminalHistory] = useState('');
 
   const fetchDisplay = (status) => {
     setDisplay(status);
@@ -26,6 +28,10 @@ const TerminalPage = () => {
     setOutcome(status);
   };
 
+  const fetchTerminalHistory = (status) => {
+    setTerminalHistory(status);
+  }
+
   //TODO: terminal input line wont appear in Chrome, Edge
   return (
       <Layout>
@@ -34,19 +40,18 @@ const TerminalPage = () => {
           <Terminal>
             <TerminalLoader
                 wait={500}
-                text={'Booting system up'}
+                text={systemMessages.boot}
             />
             <TerminalLoader
                 wait={1500}
-                text={'Launching terminal v1.0'}
+                text={systemMessages.launch}
             />
             <TerminalLoader
                 wait={3000}
-                text={'Welcome. Please, type --h to list available commands.'}
+                text={systemMessages.welcome}
             />
             <TerminalHistory
-                history={history}
-                outcome={outcome}
+                terminalHistory={terminalHistory}
             />
             <TerminalResponse
                 display={display}
@@ -58,6 +63,7 @@ const TerminalPage = () => {
                 displayStatus={fetchDisplay}
                 historyStatus={fetchHistory}
                 outcomeStatus={fetchOutcome}
+                terminalHistory={fetchTerminalHistory}
             />
             <ShutdownSequence
                 display={display}

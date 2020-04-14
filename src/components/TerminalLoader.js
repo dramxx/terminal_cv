@@ -28,6 +28,7 @@ const TerminalLoader = ({wait, text}) => {
       <>
         {
           <TextLine style={visible ? {display: 'block'} : {display: 'none'}}>
+            {/* TODO: MINOR: gotta be joking */}
             {text[0] === 'W' ? <SystemPrefix>user@terminal: </SystemPrefix> : null}
             {visible ? text : null}
           </TextLine>

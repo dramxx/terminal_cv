@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { systemPrefix } from '../commons/config';
 
 const LineWrapper = styled.div`
   font-family: 'Inconsolata', monospace;
@@ -18,10 +19,10 @@ const TerminalResponse = ({display, history, outcome}) => {
   return (
       display ? <>
         <LineWrapper>
-          <SystemPrefix>user@terminal:</SystemPrefix> {history}
+          <SystemPrefix>{systemPrefix}</SystemPrefix>{history}
         </LineWrapper>
         <LineWrapper>
-          <SystemPrefix>user@terminal:</SystemPrefix> {outcome}
+          <SystemPrefix>{systemPrefix}</SystemPrefix>{outcome}
         </LineWrapper>
       </> : null
   );

@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { navigate } from 'gatsby';
-import { availableCommands, catTexts, directoryList, helpText } from '../commons/config';
-import { sanitizeInput } from '../commons/helpers';
+import { availableCommands, catTexts, directoryList, helpText, systemMessages, systemPrefix } from '../commons/config';
 
 const SystemPrefix = styled.div`
   font-family: 'Inconsolata', monospace;
@@ -28,7 +27,7 @@ const Input = styled.input`
   width: 40vw;
 `;
 
-const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
+const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus, terminalHistory}) => {
 
   const [visible, setVisible] = useState(false);
 
@@ -56,7 +55,7 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
           switch (phrase) {
             case 'cat 1':
-              prompt.value = 'cat 1_about.txt'
+              prompt.value = 'cat 1_about.txt';
               break;
             case 'cat 2':
               prompt.value = 'cat 2_work_history.txt';
@@ -84,7 +83,8 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   const routeCommand = async (input) => {
 
-    const command = sanitizeInput(input);
+    //TODO: MINOR: regex to conditionally ( cat, --d ) replace white space for +
+    const command = input.replace(/\s+/g, '+').toLowerCase();
 
     switch (command) {
       case availableCommands.help:
@@ -117,19 +117,22 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
 
   const handleHelp = (history) => {
     historyStatus(history);
-    outcomeStatus(helpText.join('\n'));
+    outcomeStatus(helpText.join(''));
+    terminalHistory([history, helpText.join('')]);
     displayStatus(true);
   };
 
   const handleList = (history) => {
     historyStatus(history);
     outcomeStatus(directoryList.join(', '));
+    terminalHistory([history, directoryList.join(', ')]);
     displayStatus(true);
   };
 
   const handleQuit = (history) => {
     historyStatus(history);
-    outcomeStatus('Shutting down..');
+    outcomeStatus(systemMessages.shutdown);
+    terminalHistory([history, systemMessages.shutdown]);
     displayStatus(true);
     setTimeout(() => {
       navigate('/');
@@ -144,21 +147,26 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
       case '1_about.txt':
         historyStatus(history);
         outcomeStatus(catTexts.about);
+        terminalHistory([history, catTexts.about]);
         displayStatus(true);
         break;
       case '2_work_history.txt':
         historyStatus(history);
         outcomeStatus(catTexts.history);
+        terminalHistory([history, catTexts.history]);
         displayStatus(true);
         break;
       case '3_skills.txt':
         historyStatus(history);
         outcomeStatus(catTexts.skills);
+        terminalHistory([history, catTexts.skills]);
+
         displayStatus(true);
         break;
       case '4_recent_projects.txt':
         historyStatus(history);
         outcomeStatus(catTexts.projects);
+        terminalHistory([history, catTexts.projects]);
         displayStatus(true);
         break;
       default:
@@ -171,15 +179,16 @@ const TerminalInput = ({wait, displayStatus, historyStatus, outcomeStatus}) => {
   };
 
   const handleUnrecognized = (unrecognizedInput) => {
-    historyStatus(`user@terminal: ${unrecognizedInput}`);
+    historyStatus(unrecognizedInput);
     outcomeStatus(`ERROR: Input '${unrecognizedInput}' was not recognized.`);
+    terminalHistory([unrecognizedInput, `ERROR: Input '${unrecognizedInput}' was not recognized.`]);
     displayStatus(true);
   };
 
   return (
       <>
         <div style={visible ? {display: 'inline flex'} : {display: 'none'}}>
-          <SystemPrefix>user@terminal: </SystemPrefix>
+          <SystemPrefix>{systemPrefix}</SystemPrefix>
           <Input
               ref={promptRef}
               name='prompt'

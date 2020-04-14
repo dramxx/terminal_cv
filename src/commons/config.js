@@ -1,3 +1,5 @@
+export const systemPrefix = 'user@terminal: ';
+
 export const availableCommands = {
   help: '--h',
   list: 'ls',
@@ -16,6 +18,13 @@ export const directoryList = [
   '4_recent_projects.txt',
   'drahosMadar_cv.md',
 ];
+
+export const systemMessages = {
+  boot: 'Booting system up',
+  launch: 'Launching terminal v1.0',
+  welcome: 'Welcome. Please, type --h to list available commands',
+  shutdown: 'Shutting down',
+};
 
 export const helpText = [
   'ls Lists content of directory',

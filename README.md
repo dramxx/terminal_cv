@@ -12,6 +12,7 @@
  
 ### UX enhancements
  * DONE tab autocompletion
+ * command history
  
 ### IDEA enhancements
  * write CV in Markdown, use md as datasource for config strings

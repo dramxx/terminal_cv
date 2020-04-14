@@ -42,10 +42,10 @@ const IndexPage = () => {
           <Heading>hello.</Heading>
           <SubHeading>
             <div>
-              I'm Drahoš and I enjoy building busty frontends.
+              I'm Drahoš and I enjoy building reactive frontends.
             </div>
             <div>
-              for further information, please launch <Link href={'/terminal'}>terminal</Link>.
+              for further queries, please launch <Link href={'/terminal'}>terminal</Link>.
             </div>
           </SubHeading>
         </Wrapper>

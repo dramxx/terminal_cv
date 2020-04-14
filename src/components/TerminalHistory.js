@@ -1,25 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { systemPrefix } from '../commons/config';
 
-//TODO: component should store and render command and response from H-2, each set should create a new line.
-const TerminalHistory = ({history, outcome}) => {
+const LineWrapper = styled.div`
+  font-family: 'Inconsolata', monospace;
+  font-size: 20px;
+  color: green;
+  margin-left: 1vw;
+  line-height: 30px;
+`;
 
-  const terminalHistory = [];
+const SystemPrefix = styled.span`
+  font-weight: 600;
+  display: none;
+`;
+
+const TerminalHistory = ({terminalHistory}) => {
+
+  const [appHistory, setAppHistory] = useState('');
 
   useEffect(() => {
-    terminalHistory.push(history);
-    terminalHistory.push(outcome);
-  });
+    setAppHistory(appHistory + '|' + terminalHistory + '|');
+  }, [terminalHistory]);
 
-  console.log('[terminalHistory]: ', terminalHistory);
-
-  // receive command & output from parent
-  // push both as string into an Array
-  // every update render both lines
-  // clear history
+  console.log('[appHistory]: ', appHistory);
 
   return (
       <>
-
+        <LineWrapper>
+          <SystemPrefix>{systemPrefix}</SystemPrefix>{}
+        </LineWrapper>
       </>
   );
 };
